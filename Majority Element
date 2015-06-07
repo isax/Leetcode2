@@ -20,4 +20,9 @@ public class Solution {
         }
         return -1; //Invalid case
     }
+    
+    public int majorityElement2(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
 }
