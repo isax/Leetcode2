@@ -23,7 +23,9 @@ public class Solution {
     }
 }*/
 
-public class Solution {
+public class Solution { 
+    // Proof of the binary search approach: http://algorithm.yuanbin.me/binary_search/find_peak_element.html
+    
     public int findPeakElement(int[] nums) {
         int left = 0;
         int right = nums.length-1;
