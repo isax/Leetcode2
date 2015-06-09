@@ -25,3 +25,23 @@ public class Solution {
         return i;
     }
 }
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head==null) return head;
+        
+        ListNode temp = head.next;
+        head.next = null;
+        
+        return recursiveReverse(head, temp);
+    }
+    
+    private ListNode recursiveReverse(ListNode cur, ListNode next){
+        if(next==null) return cur;
+        
+        ListNode temp = next.next;
+        next.next = cur;
+        
+        return recursiveReverse(next, temp);
+    }
+}
