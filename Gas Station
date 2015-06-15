@@ -1,0 +1,22 @@
+public class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int len = gas.length;
+        int curStart = 0;
+        int availableGas = 0;
+        
+        for(int point = 0; point<len*2; point++){
+            if(availableGas<0) {
+                curStart = point;
+                availableGas = 0;
+            }
+            //if(point-curStart == gas.length) break;
+            availableGas += gas[point%len] - cost[point%len];
+        }
+        
+        if(curStart>len-1){
+            return -1;
+        }else{
+            return curStart;
+        }
+    }
+}
