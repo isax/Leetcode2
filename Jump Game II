@@ -6,8 +6,9 @@ public class Solution {
         
         for(int i = 0; i<nums.length; i++){
             if(i>cur_max_ability){
-                steps++;
+                if(next_ability == cur_max_ability) return -1;
                 cur_max_ability = next_ability;
+                steps++;
             } 
             
             if(i+nums[i]>next_ability){
