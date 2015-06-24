@@ -19,4 +19,30 @@ public class Solution {
             return curStart;
         }
     }
+    
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int len = gas.length;
+        
+        int curStart = 0;
+        int currentLeftGas = 0;
+        int totalLeftGas = 0;
+        
+        for(int point = 0; point<len; point++){
+            currentLeftGas += gas[point] - cost[point];
+            totalLeftGas += gas[point] - cost[point];
+            
+            if(currentLeftGas<0) {
+                curStart = point + 1;
+                currentLeftGas = 0;
+            }
+        }
+        
+        if(totalLeftGas>=0){
+            return curStart;
+        }else{
+            return -1;
+        }
+        
+    }
+
 }
