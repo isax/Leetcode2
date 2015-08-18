@@ -1,5 +1,5 @@
 class MyStack {
-    
+    // Reference: http://www.geeksforgeeks.org/implement-stack-using-queue/
     private LinkedList<Integer> queue1 = new LinkedList<Integer>();
     private LinkedList<Integer> queue2 = new LinkedList<Integer>();
     
