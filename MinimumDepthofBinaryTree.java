@@ -33,3 +33,78 @@ public class Solution {
        return Math.min(left, right)==0? Math.max(left, right)+1 : Math.min(left,right)+1;
     }
 }
+
+/**
+ * Iteration
+ */
+public class Solution {
+    public int minDepthIterationLessSpace(TreeNode root) {
+        if(root==null) return 0;
+        
+        Queue<TreeNode> queue  = new LinkedList<TreeNode>();
+        
+        queue.add(root);
+        int lastLevelNumOfNodes = 1;
+        int level = 0;
+        
+        while(!queue.isEmpty()){
+            level++;
+            int curLevelNumOfNodes = 0;
+            
+            for(int i = 1; i<=lastLevelNumOfNodes; i++){ // iterate in the current level
+                TreeNode node = queue.poll();
+                if(node.left ==null && node.right==null){
+                    // leaf node
+                    return level;
+                }
+                if(node.left!=null){
+                    queue.offer(node.left);
+                    curLevelNumOfNodes++;
+                }
+                
+                if(node.right!=null){
+                    queue.offer(node.right);
+                    curLevelNumOfNodes++;
+                }
+            }
+            lastLevelNumOfNodes = curLevelNumOfNodes;
+        }
+        return level;
+    }
+    
+    public int minDepthIterationMoreSpace(TreeNode root) {
+        if(root==null) return 0;
+        
+        Queue<TreeNode> queue  = new LinkedList<TreeNode>();
+        Queue<Integer> count = new LinkedList<Integer>();
+        
+        queue.add(root);
+        count.add(1);
+        int level = 0;
+        
+        while(!queue.isEmpty()){
+            level++;
+            int num = count.poll();
+            int numOfChilds = 0;
+            
+            for(int i = 1; i<=num; i++){ // iterate in the current level
+                TreeNode node = queue.poll();
+                if(node.left ==null && node.right==null){
+                    // leaf node
+                    return level;
+                }
+                if(node.left!=null){
+                    queue.offer(node.left);
+                    numOfChilds++;
+                }
+                
+                if(node.right!=null){
+                    queue.offer(node.right);
+                    numOfChilds++;
+                }
+            }
+            count.offer(numOfChilds);
+        }
+        return level;
+    }
+}
