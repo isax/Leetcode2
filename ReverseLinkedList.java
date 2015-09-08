@@ -26,6 +26,20 @@ public class Solution {
     }
 }
 
+// BETTER RECURSIVE SOLUTION
+public ListNode reverseList(ListNode head) {
+        if(head==null) return null;
+        if(head.next == null) return head;
+        
+        ListNode secondNode = head.next;
+        head.next = null; // otherwise cycle
+        
+        ListNode reverseSecondNodeHead = reverseList(secondNode);
+        secondNode.next = head;
+        
+        return reverseSecondNodeHead;
+    }
+
 public class Solution {
     public ListNode reverseList(ListNode head) {
         if(head==null) return head;
