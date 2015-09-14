@@ -14,7 +14,7 @@ public class Solution {
         return -1;
     }
     
-    // Binary search
+    // Binary search: recursive
     public int findPeakElement(int[] nums) {
         return helper(nums, 0, nums.length-1);
     }
@@ -34,4 +34,30 @@ public class Solution {
             return helper(nums, mid+1, high);
         }
     }
+    
+    public class Solution {
+    
+    // Binary search: iterative
+    public int findPeakElement(int[] nums) {
+        
+        int left = 0;
+        int right = nums.length-1;
+        
+        while(left<=right){
+            int mid = (left+right)/2;
+            
+            boolean leftComp = mid - 1 < 0?true: nums[mid]>nums[mid-1];
+            boolean rightComp = mid + 1 > nums.length-1?true:nums[mid]>nums[mid+1];
+            
+            if(leftComp && rightComp){
+                return mid;
+            }else if(!leftComp) {
+                right = mid - 1;
+            }else if(!rightComp){
+                left  = mid + 1;
+            }
+        }
+        return -1;
+    }
+}
 }
