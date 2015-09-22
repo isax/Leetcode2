@@ -1,4 +1,5 @@
 public class Solution {
+    // http://codeganker.blogspot.com/2014/04/valid-palindrome-leetcode.html
     public boolean isPalindrome(String s) {
         if(s==null || s.length()==0) return true;
         
