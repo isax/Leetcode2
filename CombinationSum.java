@@ -1,5 +1,6 @@
 public class Solution {
     // DO NOT USE CACHE, THE ORDER MATTERS HERE...
+    // Set means no duplicate # in the input
     // http://codeganker.blogspot.com/2014/03/combination-sum-leetcode.html
     public List<List<Integer>> combinationSum(int[] candidates, int target ) {
         Arrays.sort(candidates);
