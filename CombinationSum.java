@@ -14,7 +14,7 @@ public class Solution {
         
         //HashSet<Integer> hs = new HashSet<Integer>();
         for(int i = cur; i<candidates.length; i++){
-            if(i>0 && candidates[i]==candidates[i-1]) continue;
+            if(i>cur && candidates[i]==candidates[i-1]) continue;
             
             if(candidates[i]>target) continue;
             else {
