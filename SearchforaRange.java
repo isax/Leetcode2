@@ -1,4 +1,7 @@
 public class Solution {
+    // Another solution: https://leetcode.com/discuss/18242/clean-iterative-solution-binary-searches-with-explanation
+    
+    // Mine:
     public int[] searchRange(int[] nums, int target) {
         int [] res = new int[2];
         
