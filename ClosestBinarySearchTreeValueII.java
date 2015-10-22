@@ -35,4 +35,52 @@ public class Solution {
             helper(node.right, k, q);
         }
     }
+    
+    // https://leetcode.com/discuss/55240/ac-clean-java-solution-using-two-stacks
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        if(root==null) return new ArrayList<Integer>();
+        
+        Stack<Integer> predecessors = new Stack<Integer>();
+        Stack<Integer> successors = new Stack<Integer>();
+        
+        inorder(root, predecessors, target);
+        reverseInorder(root, successors, target);
+        
+        List<Integer> list = new ArrayList<Integer>();
+        while(k-->0){
+            if(predecessors.isEmpty()) {
+                list.add(successors.pop());
+            }else if(successors.isEmpty()) {
+                list.add(predecessors.pop());
+            }
+            else if(Math.abs((double)predecessors.peek()-target)< Math.abs((double)successors.peek()-target)) {
+                list.add(predecessors.pop());
+            }else{
+                list.add(successors.pop());
+            }
+        }
+        return list;
+    }
+    
+    private void inorder(TreeNode root, Stack<Integer> stack, double target){
+        if(root!=null){
+            inorder(root.left, stack, target);
+            
+            if(root.val>target) return;
+            stack.push(root.val);
+            
+            inorder(root.right, stack, target);
+        }
+    }
+    
+    private void reverseInorder(TreeNode root, Stack<Integer> stack, double target){
+        if(root!=null){
+            reverseInorder(root.right, stack, target);
+            
+            if(root.val<=target) return;
+            stack.push(root.val);
+            
+            reverseInorder(root.left, stack, target);
+        }
+    }
 }
