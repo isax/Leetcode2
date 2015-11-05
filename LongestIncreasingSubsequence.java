@@ -15,4 +15,34 @@ public class Solution {
         }
         return global;
     }
+    
+    
+    // O(nlogn)
+    // https://leetcode.com/discuss/67572/o-nlogn-and-o-n-2-java-solutions
+    public int lengthOfLIS(int[] nums) {
+        int len = nums.length;
+        if(len==0) return 0;
+        
+        int [] tailTable = new int[len];
+        int cur = 0;
+        
+        for(int i = 0; i<len; i++){
+            if(i==0 || nums[i]<tailTable[0]) tailTable[0] = nums[i];
+            else if(nums[i]>tailTable[cur])  tailTable[++cur] = nums[i];
+            else{
+                int index = binarySearch(0, cur, nums[i], tailTable);
+                tailTable[index] = nums[i];
+            }
+        }
+        return cur+1;
+    }
+    
+    private int binarySearch(int l, int r, int target, int [] tailTable){
+        while(l<=r){
+            int mid = l + (r-l)/2;
+            if(tailTable[mid]<target) l = mid+1;
+            else r = mid-1;
+        }
+        return l;
+    }
 }
