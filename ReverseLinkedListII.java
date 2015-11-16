@@ -7,6 +7,8 @@
  * }
  */
 public class Solution {
+    
+    // https://leetcode.com/discuss/15733/share-my-14-lines-c-solution
     public ListNode reverseBetween(ListNode head, int m, int n) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
