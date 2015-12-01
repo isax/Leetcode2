@@ -15,9 +15,7 @@ public class Solution {
                }else{
                    l = mid+1; // not in left sub
                }
-            }
-            
-            if(nums[mid]<=nums[r]){ // right sub incremental
+            } else { // right sub incremental
                 if(target>nums[mid] && target<=nums[r]){
                     l = mid+1;
                 }else{
