@@ -1,5 +1,6 @@
 public class Solution {
     // http://blog.csdn.net/linhuanmars/article/details/23589057
+    // https://leetcode.com/discuss/48208/lines-solutions-with-detailed-explanations-time-and-space
     public int numDistinct(String s, String t) {
         if(s.length()<t.length()) return 0;
         
