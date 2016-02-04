@@ -1,4 +1,5 @@
 public class Solution {
+    // https://leetcode.com/discuss/72701/here-10-line-template-that-can-solve-most-substring-problems
     public String minWindow(String s, String t) {
         Map<Character, Integer> map = new HashMap<Character, Integer>();
         for(int i = 0; i<t.length(); i++){
