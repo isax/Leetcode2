@@ -7,7 +7,8 @@
  * }
  */
 public class Solution {
-    
+    // https://www.khanacademy.org/computing/computer-science/algorithms/merge-sort/a/analysis-of-merge-sort
+    // good explanation of merge sort time complexity
     // dive and conquer
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists==null || lists.length==0) return null;
