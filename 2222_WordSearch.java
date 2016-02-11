@@ -1,4 +1,5 @@
 public class Solution {
+    // Time: O(m*n * m*n)
     // xor in https://leetcode.com/discuss/23165/accepted-very-short-java-solution-no-additional-space
     public boolean exist(char[][] board, String word) {
         if(board.length==0 || board[0].length==0 || word.length()==0) return false;
