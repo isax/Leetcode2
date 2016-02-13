@@ -1,5 +1,5 @@
 public class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public boolean canFinishDFS(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adjList = new ArrayList<List<Integer>>();
         for(int i = 0; i<numCourses; i++){
             adjList.add(new ArrayList<Integer>());
@@ -7,7 +7,7 @@ public class Solution {
         for(int i = 0; i<prerequisites.length; i++){
             int p = prerequisites[i][0];
             int q = prerequisites[i][1];
-            adjList.get(p).add(q);
+            adjList.get(q).add(p);
         }
         
         boolean[] visited = new boolean[numCourses];
@@ -31,7 +31,7 @@ public class Solution {
     }
     
     
-    public boolean canFinishBFS(int numCourses, int[][] prerequisites) {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adjList = new ArrayList<List<Integer>>();
         for(int i = 0; i<numCourses; i++){
             adjList.add(new ArrayList<Integer>());
@@ -40,9 +40,9 @@ public class Solution {
         int[] indegrees = new int[numCourses];
         for(int i = 0; i<prerequisites.length; i++){
             int p = prerequisites[i][0];
-            int q = prerequisites[i][1];
-            adjList.get(p).add(q);
-            indegrees[q]++;
+            int q = prerequisites[i][1]; // must take q before p
+            adjList.get(q).add(p);
+            indegrees[p]++;
         }
         
         Queue<Integer>q = new LinkedList<Integer>();
