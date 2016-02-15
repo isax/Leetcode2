@@ -1,4 +1,32 @@
 public class Solution {
+    public boolean isMatchLatest(String s, String p) {
+        int l1 = s.length(), l2 = p.length();
+        
+        boolean[][]dp = new boolean[l1+1][l2+1];
+        dp[0][0] = true;
+        for(int j = 2; j<=l2; j++){
+            dp[0][j] = dp[0][j-2] && p.charAt(j-1)=='*'; // corner case
+        }
+        
+        for(int i = 1; i<=l1; i++){
+            for(int j = 1; j<=l2; j++){
+                char c1 = s.charAt(i-1);
+                char c2 = p.charAt(j-1);
+                
+                if(c2!='*'){
+                    dp[i][j] = dp[i-1][j-1] && (c1==c2 || c2=='.');
+                }else{
+                    dp[i][j] = dp[i][j-2] // match zero
+                    || (dp[i-1][j] && (c1==p.charAt(j-2)||p.charAt(j-2)=='.')); // match > 0
+                    // when matching == 1 time, == [i-1][j] matches 0 times
+                    // forgot p.charAt(j-2)=='.'
+                }
+            }
+        }
+        return dp[l1][l2];
+    }
+    
+    
     // https://leetcode.com/discuss/43860/9-lines-16ms-c-dp-solutions-with-explanations
     public boolean isMatch(String s, String p) {
         int l1 = s.length();
