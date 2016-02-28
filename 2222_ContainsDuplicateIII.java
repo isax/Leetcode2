@@ -1,5 +1,6 @@
 public class Solution {
     // https://leetcode.com/discuss/38206/ac-o-n-solution-in-java-using-buckets-with-explanation
+    // http://algobox.org/contains-duplicate-iii/
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         if (k < 1 || t < 0) return false;
         
