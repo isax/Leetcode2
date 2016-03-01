@@ -1,4 +1,26 @@
 public class Solution {
+    
+    public boolean isMatch233(String s, String p) {
+        int len1 = s.length(), len2 = p.length();
+        
+        boolean [][] dp = new boolean[len1+1][len2+1];
+        dp[0][0] = true;
+        
+        for(int i = 0; i <= len1; i++){
+            for(int j = 1; j <= len2; j++){
+                char chp = p.charAt(j-1);
+                
+                if(chp != '*'){
+                    dp[i][j] = i>=1 && (chp=='.' || s.charAt(i-1)==chp) && dp[i-1][j-1]; 
+                } else{
+                    dp[i][j] = j>=2 && dp[i][j-2] // match empty
+                               || i>=1 && j>=2 && (p.charAt(j-2)=='.' || s.charAt(i-1)==p.charAt(j-2)) && dp[i-1][j];
+                }
+            }
+        }
+        return dp[len1][len2];
+    }
+    
     public boolean isMatchLatest(String s, String p) {
         int l1 = s.length(), l2 = p.length();
         
