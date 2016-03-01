@@ -2,6 +2,27 @@ public class Solution {
     // https://leetcode.com/discuss/10133/linear-runtime-and-constant-space-solution
     // Greedy?
     
+    public boolean isMatch(String s, String p) {
+        int len1 = s.length(), len2 = p.length();
+        
+        boolean [][] dp = new boolean[len1+1][len2+1];
+        dp[0][0] = true;
+        
+        for(int i = 0; i <= len1; i++){
+            for(int j = 1; j <= len2; j++){
+                char chp = p.charAt(j-1);
+                
+                if(chp != '*'){
+                    dp[i][j] = i>=1 && (chp=='?' || s.charAt(i-1)==chp) && dp[i-1][j-1]; 
+                } else{
+                    dp[i][j] = dp[i][j-1] // match empty
+                               || i>=1 && dp[i-1][j];
+                }
+            }
+        }
+        return dp[len1][len2];
+    }
+    
     // https://leetcode.com/discuss/43966/accepted-c-dp-solution-with-a-trick
     public boolean isMatch(String s, String p) {
         int l1 = s.length(), l2 = p.length();
