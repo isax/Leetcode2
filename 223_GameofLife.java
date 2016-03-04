@@ -1,4 +1,50 @@
 public class Solution {
+    public void gameOfLife(int[][] board) {
+        int row = board.length;
+        int col = board[0].length;
+        
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                int count = countNeighbors(board, i, j);
+                
+                if(board[i][j]==0){// dead
+                    if(count==3){
+                        board[i][j] = 2;
+                    }
+                }else{ // live
+                    if(count<2 || count>3){
+                        board[i][j] = 1;
+                    } else{
+                        board[i][j] = 3;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                board[i][j] >>= 1;
+            }
+        }
+    }
+    //////////////////////////////!!!!!!!!!!!!!!!!!!!!
+    int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {1, 1}, {-1, 1}, {1, -1}};
+    private int countNeighbors(int[][] board, int i, int j){
+        int row = board.length;
+        int col = board[0].length;
+        int count = 0;
+        for(int [] direction : directions){
+            int m = i + direction[0];
+            int n = j + direction[1];
+            
+            if(m<0 || n<0 || m>row-1 || n>col-1) continue;
+            
+            if((board[m][n]&1)==1){
+                count++;
+            }
+        }
+        return count;
+    }
+    
     // Follow up: https://leetcode.com/discuss/62185/infinite-board-solution
     
     // https://leetcode.com/discuss/62038/c-ac-code-o-1-space-o-mn-time
