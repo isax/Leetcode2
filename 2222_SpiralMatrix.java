@@ -1,4 +1,44 @@
 public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        if(matrix.length==0 || matrix[0].length==0) return Collections.emptyList();
+        List<Integer> list = new ArrayList<Integer>();
+        int row = matrix.length;
+        int col = matrix[0].length;
+        
+        int leftBound = 0, rightBound = col-1;
+        int upperBound = 0, lowerBound = row-1;
+        
+        while(leftBound <= rightBound && upperBound<=lowerBound){
+            // going right
+            for(int j = leftBound; j<=rightBound; j++){
+                list.add(matrix[upperBound][j]);
+            }
+            upperBound++;
+            
+            // going down
+            for(int i = upperBound; i<=lowerBound; i++){
+                list.add(matrix[i][rightBound]);
+            }
+            rightBound--;
+            
+            if(upperBound<=lowerBound){
+                // going left
+                for(int j = rightBound; j>=leftBound; j--){
+                    list.add(matrix[lowerBound][j]);
+                }
+                lowerBound--;
+            }
+            
+            if(leftBound<=rightBound){
+                // going up
+                for(int i = lowerBound; i>=upperBound; i--){
+                    list.add(matrix[i][leftBound]);
+                }
+                leftBound++;
+            }
+        }
+        return list;
+    }
     
     // https://leetcode.com/discuss/12228/super-simple-and-easy-to-understand-solution
     public List<Integer> spiralOrder(int[][] matrix) {
