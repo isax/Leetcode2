@@ -1,4 +1,49 @@
 public class Solution {
+    public String intToRoman(int num) {
+        StringBuilder sb = new StringBuilder();
+        int digit = 1000;
+        List<Integer> list = new ArrayList<Integer>();
+        while(digit>0){
+            list.add(num/digit);
+            num %= digit;
+            digit /= 10;
+        }
+        
+        sb.append(convert(list.get(0), 'M', ' ', ' '));
+        sb.append(convert(list.get(1), 'C', 'D', 'M'));
+        sb.append(convert(list.get(2), 'X', 'L', 'C'));
+        sb.append(convert(list.get(3), 'I', 'V', 'X'));
+        return sb.toString();
+    }
+    
+    private String convert(int num, char one, char five, char ten){
+        StringBuilder sb = new StringBuilder();
+        switch(num){
+            case 1:
+            case 2:
+            case 3:
+                for(int i = 0; i<num; i++){
+                    sb.append(one);
+                }
+                break;
+            case 4:
+                sb.append(one).append(five);
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                sb.append(five);
+                for(int i = 0; i<num-5; i++){
+                    sb.append(one);
+                }
+                break;
+            case 9:
+                sb.append(one).append(ten);
+                break;
+        }
+        return sb.toString();
+    }
 
     // http://blog.csdn.net/linhuanmars/article/details/21145639
     public String intToRoman(int num) {
