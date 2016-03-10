@@ -8,6 +8,46 @@
  * }
  */
 public class Solution {
+    // 310
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+       Deque<Integer> pre = new LinkedList<>();
+       Deque<Integer> post = new LinkedList<>();
+       build(root, target, pre, post);
+       List<Integer> list = new ArrayList<>();
+       for(int i = 0; i<k; i++){
+           if(pre.isEmpty()){
+               list.add(post.poll());
+           }else if(post.isEmpty()){
+               list.add(pre.poll());
+           }else{
+               if(Math.abs(pre.peek()-target)<=Math.abs(post.peek()-target)){
+                   list.add(pre.poll());
+               }else{
+                   list.add(post.poll());
+               }
+           }
+       }
+       return list;
+    }
+    
+    private void build(TreeNode root, double target, Deque<Integer> pre, Deque<Integer> post){
+        if(root==null){
+            return;
+        }
+        build(root.left, target, pre,post);
+        if(root.val <= target){
+            pre.addFirst(root.val);
+        }else{
+            post.add(root.val);
+        }
+        build(root.right, target, pre, post);
+    }
+    ///////
+    
+    
+    
+    
+    
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         Stack<TreeNode> predecessors = new Stack<TreeNode>();
         Stack<TreeNode> successors = new Stack<TreeNode>();
