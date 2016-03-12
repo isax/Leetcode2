@@ -1,4 +1,41 @@
 public class Solution {
+    // 312
+    public int longestIncreasingPath(int[][] matrix) {
+        if(matrix.length==0 || matrix[0].length==0) return 0;
+        int row = matrix.length;
+        int col = matrix[0].length;
+        
+        int [][] dp = new int[row][col];
+        int max = 1;
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                //if(dp[i][j]!=0){
+                max = Math.max(max, dfs(matrix, i, j, dp));
+                //} 
+            }
+        }
+        return max;
+    }
+    
+    int [][] directions = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+    private int dfs(int[][] matrix, int i, int j, int[][]dp){
+        if(dp[i][j]!=0) return dp[i][j];
+        dp[i][j] = 1;
+        for(int[] dir: directions){
+            int x = i + dir[0];
+            int y = j + dir[1];
+            
+            if(x<0 || y<0 || x>matrix.length-1 || y>matrix[0].length-1 || matrix[i][j]>=matrix[x][y]){
+                continue;
+            }
+            dp[i][j] = Math.max(dp[i][j], 1 + dfs(matrix, x, y, dp));
+        }
+        return dp[i][j];
+    }
+
+/////
+    
+    
     // https://leetcode.com/discuss/81389/15ms-concise-java-solution
     // should be fine even without visited 
     // since we do the check "matrix[i][j]<matrix[i-1][j]", and the visiting should be only increasing.
