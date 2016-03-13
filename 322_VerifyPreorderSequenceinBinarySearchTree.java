@@ -1,4 +1,19 @@
 public class Solution {
+    public boolean verifyPreorder(int[] preorder) {
+        if(preorder.length==0) return true;
+        Stack<Integer> stack = new Stack<Integer>();
+        int lower = Integer.MIN_VALUE;
+        for(int i : preorder){
+            while(!stack.isEmpty() && i>stack.peek()){
+                lower = stack.pop(); 
+            }
+            if(i<lower) return false;
+            else stack.push(i);
+        }
+        return true;
+    }
+    
+    
     // // NEED TO REVISIT: https://leetcode.com/discuss/51543/java-o-n-and-o-1-extra-space
     public boolean verifyPreorder(int[] preorder) {
         Stack<Integer> stack = new Stack<Integer>();
