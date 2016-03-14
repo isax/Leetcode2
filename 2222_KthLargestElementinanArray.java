@@ -1,4 +1,5 @@
 public class Solution {
+    // timecomplexity: https://leetcode.com/discuss/69427/concise-java-solution-based-on-quick-select
     public int findKthLargest(int[] nums, int k) {
         return helper(nums, 0, nums.length-1, k);
     }
