@@ -8,7 +8,7 @@
  * }
  */
 public class Solution {
-    
+    // https://leetcode.com/discuss/87612/why-the-hint-says-the-optimal-runtime-complexity-height-bst
     public int kthSmallest(TreeNode root, int k) {
         if(root==null) return Integer.MIN_VALUE;
         int left = count(root.left);
