@@ -8,6 +8,44 @@
  * }
  */
 public class Solution {
+    //315
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        TreeNode prev = null;
+        
+        while(root!=null){
+            if(root.val>p.val){
+                prev = root;
+                root = root.left;
+            }else{
+                root = root.right;
+            }
+        }
+        return prev;
+    }
+    public TreeNode inorderSuccessorMine(TreeNode root, TreeNode p) {
+        TreeNode prev = null;
+        
+        while(root!=p){
+            if(root.val>p.val){
+                prev = root;
+                root = root.left;
+            }else{
+                root = root.right;
+            }
+        }
+        
+        if(p.right==null){
+            return prev;
+        }else{
+            p = p.right;
+            while(p.left!=null){
+                p = p.left;
+            }
+            return p;
+        }
+    }
+    
+    
     // https://leetcode.com/discuss/59787/share-my-java-recursive-solution 
     // also good
     // sigh i couldn't think of this 
