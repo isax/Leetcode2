@@ -1,4 +1,29 @@
 public class Solution {
+    public int findMin(int[] nums) {
+        return helper(nums, 0, nums.length-1);
+    }
+    
+    private int helper(int[] nums, int i, int j){
+        int mid = (i+j)/2;
+        
+        if(nums[i]<nums[j] || i==j){
+            // increasing
+            return nums[i];
+        }else{
+            if(nums[i]<nums[mid]){
+                return helper(nums, mid+1, j);
+            }else if(nums[i]>nums[mid]){
+                return helper(nums, i, mid);
+            }else{
+                if(nums[i]==nums[j]){
+                    return helper(nums, i, j-1);
+                }else{
+                    return helper(nums, mid+1, j);
+                }
+            }
+        }
+    }
+    
     public int findMinFirst(int[] nums) {
         int left = 0;
         int right = nums.length-1;
