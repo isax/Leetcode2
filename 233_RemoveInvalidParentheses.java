@@ -1,4 +1,64 @@
 public class Solution {
+    // 315
+    public List<String> removeInvalidParentheses(String s) {
+        int minValidPair = getMinValidPairCount(s);
+        Set<String> set = new HashSet<String>();
+        helper(s.toCharArray(), 0, 0, 0, minValidPair, new StringBuilder(), set);
+        return new ArrayList<String>(set);
+    }
+    //////////////deduppppppppppp
+    private void helper(char[] chs, int lc, int rc, int i, int minValidPair, StringBuilder sb, Set<String>set){
+        if(i==chs.length){ // ())aaaaa ->  || lc==rc && lc==minValidPair){
+            if(lc==rc && lc==minValidPair){
+                set.add(sb.toString());
+            }
+            return;
+        }
+        
+        char ch = chs[i];
+        int len = sb.length();
+        if(ch!='(' && ch!=')'){
+            sb.append(ch);
+            helper(chs, lc, rc, i+1, minValidPair, sb, set);
+            //sb.setLength(sb.length()-1);
+        }else{
+            // ignore
+            helper(chs, lc, rc, i+1, minValidPair, sb, set);
+            
+            if(ch=='(' && lc<minValidPair){
+                sb.append(ch);
+                helper(chs, lc+1, rc, i+1, minValidPair, sb, set);
+                //sb.setLength(sb.length()-1);
+            }
+            
+            if(ch==')' && rc<minValidPair && lc>rc){
+                sb.append(ch);
+                helper(chs, lc, rc+1, i+1, minValidPair, sb, set);
+                //sb.setLength(sb.length()-1);
+            }
+        }
+        
+        sb.setLength(len);
+    }
+    private int getMinValidPairCount(String s){
+        char [] chs = s.toCharArray();
+        int lc = 0, count = 0;
+        for(int i = 0; i<chs.length; i++){
+            if(chs[i]!='(' && chs[i]!=')') continue;
+            
+            if(chs[i]=='('){
+                lc++;
+            }else{
+                if(lc!=0){
+                    lc--;
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    
     // https://leetcode.com/discuss/67842/share-my-java-bfs-solution
     // BFS O(2^n*n)
     public List<String> removeInvalidParentheses(String s) {
