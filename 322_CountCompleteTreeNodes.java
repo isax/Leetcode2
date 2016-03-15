@@ -8,6 +8,32 @@
  * }
  */
 public class Solution {
+    // 315
+    public int countNodes(TreeNode root) {
+        int h = getLeftHeight(root);
+        return helper(root, h);
+    }
+    public int helper(TreeNode root, int height) {
+        if(root==null) return 0;
+        
+        int rightSubHeight = getLeftHeight(root.right);
+        if(rightSubHeight + 1==height){
+            return (1<<(height-1)) - 1 + 1 + helper(root.right, rightSubHeight);
+        }else{
+            return (1<<rightSubHeight) - 1 + 1 + helper(root.left, height-1);
+        }
+    }
+    
+    private int getLeftHeight(TreeNode root){
+        int count = 0;
+        while(root!=null){
+            count++;
+            root = root.left;
+        }
+        return count;
+    }
+    
+    
     public int countNodes(TreeNode root) {
         int height = getHeight(root);
         int count = getNodes(root, height);
