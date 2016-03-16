@@ -1,4 +1,53 @@
 public class Solution {
+    
+    // 316/////////
+    int[][]dirs = {{0,1}, {1,0}, {0,-1}, {-1, 0}};
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        int[] uf = new int[m*n];
+        Arrays.fill(uf, -1);
+        List<Integer> list = new ArrayList<>();
+        int count = 0;
+        for(int [] pos : positions){
+            int i = pos[0];
+            int j = pos[1];
+            count++; // add one island
+            int root = i*n + j;
+            uf[root] = root;
+            
+            for(int[] dir: dirs){
+                int a = i + dir[0];
+                int b = j + dir[1];
+                
+                if(a<0 || b<0 || a>m-1 ||b>n-1 ||uf[a*n+b]==-1){
+                    continue;
+                }
+                int neighborRoot = findRoot(uf, a*n+b);
+                
+                if(neighborRoot!=root){
+                    // merge island
+                    count--;
+                    uf[root] = neighborRoot;
+                    root = neighborRoot; // change my root to my neighbor's root
+                    //uf[neighborRoot] = root; the same
+                }
+            }
+            list.add(count);
+        }
+        return list;
+    }
+    
+    private int findRoot(int[] uf, int i){
+        while(uf[i]!=i){
+            uf[i] = uf[uf[i]];
+            i = uf[i];
+        }
+        return i;
+    }
+    
+    
+    
+    
+    
     // https://leetcode.com/discuss/69572/easiest-java-solution-with-explanations
     // O(NlogN) worst case O(N^2)
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
