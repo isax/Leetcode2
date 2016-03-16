@@ -1,5 +1,146 @@
 public class Solution {
+    // 316
+    // BFS
+    public int numIslands(char[][] grid) {
+        if(grid.length==0) return 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        
+        boolean[] visited = new boolean[row*col];
+        int count = 0;
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                if(grid[i][j]=='1' && !visited[i*col+j]){
+                    bfs(grid, i, j, visited);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    int[][] dirs = {{1, 0}, {0, 1}, {0,-1}, {-1, 0}};
+    private void bfs(char[][] grid, int i, int j, boolean[] visited){
+        int row = grid.length;
+        int col = grid[0].length;
+        
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.offer(i*col + j);
+        visited[i*col+j] = true;
+        
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            i = cur/col;
+            j = cur%col;
+            
+            for(int[] dir : dirs){
+                int m = i + dir[0];
+                int n = j + dir[1];
+                if(m<0 || n<0 || m > row-1 || n > col-1 || grid[m][n]=='0' || visited[m*col+n]){
+                    continue;
+                }
+                q.offer(m*col + n);
+                visited[m*col+n] = true;
+            }
+        }
+    }
     
+    // dfs
+    public int numIslands(char[][] grid) {
+        if(grid.length==0) return 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        
+        boolean[] visited = new boolean[row*col];
+        int count = 0;
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                if(grid[i][j]=='1' && !visited[i*col+j]){
+                    dfs(grid, i, j, visited);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    int[][] dirs = {{1, 0}, {0, 1}, {0,-1}, {-1, 0}};
+    private void dfs(char[][] grid, int i, int j, boolean[] visited){
+        int row = grid.length;
+        int col = grid[0].length;
+        visited[i*col+j] = true;
+        
+        for(int[] dir : dirs){
+            int m = i + dir[0];
+            int n = j + dir[1];
+            if(m<0 || n<0 || m > row-1 || n > col-1 || grid[m][n]=='0' || visited[m*col+n]){
+                continue;
+            }
+            dfs(grid, m, n, visited);
+        }
+    }
+    
+    // union find
+    int[][] dirs = {{1, 0}, {0, 1}};
+    public int numIslands(char[][] grid) {
+        if(grid.length==0) return 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        
+        int [] uf =  new int[row*col];
+        int count = init(uf, grid);
+        
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                if(grid[i][j]=='1'){
+                    int curRoot = findRoot(i*col + j, uf);///////// Optimize
+                    
+                    for(int[] dir : dirs){
+                        int m = i + dir[0];
+                        int n = j + dir[1];
+                        if(m > row-1 || n > col-1 || grid[m][n]=='0'){
+                            continue;
+                        }
+                        
+                        int neighborRoot = findRoot(m*col + n, uf);
+                        if(curRoot!=neighborRoot){
+                            count--;// union two islands
+                            uf[neighborRoot] = curRoot;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    
+    private int findRoot(int i, int[]uf){
+        while(uf[i]!=i){
+            uf[i] = uf[uf[i]];
+            i = uf[i];
+        }
+        return i;
+    }
+    
+    private int init(int[]uf, char[][] grid){
+        int count = 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        
+        for(int i = 0; i<row; i++){
+            for(int j = 0; j<col; j++){
+                if(grid[i][j]=='1'){
+                    uf[i*col + j]=i*col+j;
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    
+    
+    
+    
+    //////////////////////////////
     public int numIslands(char[][] grid) {
         if(grid.length==0 || grid[0].length==0) return 0;
         boolean[][] visited = new boolean[grid.length][grid[0].length];
