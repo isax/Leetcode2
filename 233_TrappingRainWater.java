@@ -1,4 +1,22 @@
 public class Solution {
+    if(height.length==0) return 0;
+        int l = 0, r = height.length-1;
+        
+        int leftMax = height[l], rightMax = height[r];
+        int sum = 0;
+        while(l<r){
+            if(leftMax<rightMax){
+                l++;
+                sum += Math.max(0, leftMax - height[l]);
+                leftMax = Math.max(leftMax, height[l]);
+            }else{
+                r--;
+                sum +=  Math.max(0, rightMax - height[r]);
+                rightMax = Math.max(rightMax, height[r]);
+            }
+        }
+        return sum;
+    
     
     public int trap(int[] height) {
         int l = 0, r = height.length-1;
