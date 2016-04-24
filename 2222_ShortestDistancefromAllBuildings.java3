@@ -1,4 +1,62 @@
 public class Solution {
+    int[][] dirs = {{1,0}, {0,1}, {-1,0}, {0,-1}};
+    public int shortestDistance(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        int[][] res = new int[m][n];
+        int[][] canReach = new int[m][n];
+        int count = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j<n; j++){
+                if(grid[i][j]==1){
+                    count++;
+                    
+                    Queue<Integer> row = new LinkedList<>();
+                    Queue<Integer> col = new LinkedList<>();
+                    boolean[][] visited = new boolean[m][n];
+                    row.offer(i); col.offer(j);
+                    int level = 0;
+                    
+                    while(!row.isEmpty()){
+                        
+                        int currentCount = row.size();
+                        
+                        for(int q = 0; q<currentCount; q++){
+                            int r = row.poll();
+                            int c = col.poll();
+                            canReach[r][c]++;
+                            res[r][c] += level;
+                        
+                            for(int[] dir: dirs){
+                                int nr = r + dir[0];
+                                int nc = c + dir[1];
+                                
+                                if(nr<0 || nr>m-1 || nc<0 || nc>n-1 || visited[nr][nc] || grid[nr][nc]!=0){
+                                    continue;
+                                }
+                                visited[nr][nc] = true;
+                                row.offer(nr);
+                                col.offer(nc);
+                            }
+                        }
+                        level++;
+                    }
+                }
+            }
+        }
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j<n; j++){
+                if(grid[i][j]==0 && canReach[i][j]==count){
+                    min = Math.min(res[i][j], min);
+                }
+            }
+        }
+        return min==Integer.MAX_VALUE?-1:min;
+    }
+    
+    
     public int shortestDistance(int[][] grid) {
         int row = grid.length;
         int col = grid[0].length;
